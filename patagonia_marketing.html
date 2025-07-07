@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patagonia Marketing - Posicionamiento Empresarial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 120%;
+            height: 120%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="white" opacity="0.1"/><circle cx="80" cy="40" r="1.5" fill="white" opacity="0.1"/><circle cx="40" cy="80" r="1" fill="white" opacity="0.1"/></svg>');
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.4em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .location-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .location-badge i {
+            margin-right: 8px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: #25D366;
+            color: white;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #128C7E;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(37, 211, 102, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            box-shadow: 0 8px 25px rgba(255,255,255,0.3);
+        }
+
+        .btn-secondary:hover {
+            background: #f8f9ff;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255,255,255,0.4);
+        }
+
+        .services {
+            padding: 100px 0;
+            background: #f8f9ff;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 60px;
+            color: #333;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .service-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            font-size: 2em;
+            color: white;
+        }
+
+        .service-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .about {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .about-text p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9ff;
+            border-radius: 15px;
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #667eea;
+            display: block;
+        }
+
+        .contact {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .contact-info h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.5);
+            z-index: 1000;
+            animation: pulse 2s infinite;
+            text-decoration: none;
+            color: white;
+            font-size: 1.5em;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .map-container {
+            background: #e8eaff;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5em;
+            }
+            
+            .hero p {
+                font-size: 1.2em;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="location-badge">
+                    📍 Patagonia Argentina
+                </div>
+                <h1>Patagonia Marketing</h1>
+                <p>Ayudamos a empresas patagónicas a posicionarse en el mercado digital</p>
+                <div class="cta-buttons">
+                    <a href="https://wa.me/5492901234567?text=Hola! Quiero información sobre sus servicios de marketing" class="btn btn-primary" target="_blank">
+                        📱 Contactar por WhatsApp
+                    </a>
+                    <a href="#servicios" class="btn btn-secondary">
+                        🚀 Ver Servicios
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="servicios">
+        <div class="container">
+            <h2 class="section-title">Nuestros Servicios</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🎯</div>
+                    <h3>Marketing Digital</h3>
+                    <p>Estrategias personalizadas para aumentar tu presencia online y alcanzar a más clientes en toda la Patagonia.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📱</div>
+                    <h3>Redes Sociales</h3>
+                    <p>Gestión profesional de Instagram, Facebook y TikTok para conectar con tu audiencia patagónica.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🌐</div>
+                    <h3>Desarrollo Web</h3>
+                    <p>Sitios web modernos y responsivos que representen la esencia única de tu empresa patagónica.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📊</div>
+                    <h3>SEO Local</h3>
+                    <p>Optimización para aparecer primero en búsquedas locales de Bariloche, Ushuaia, El Calafate y toda la región.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💡</div>
+                    <h3>Consultoría</h3>
+                    <p>Asesoramiento estratégico para potenciar tu negocio aprovechando las oportunidades del mercado patagónico.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📈</div>
+                    <h3>Publicidad Online</h3>
+                    <p>Campañas efectivas en Google Ads y Facebook Ads enfocadas en el mercado de la Patagonia.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Especialistas en Marketing Patagónico</h2>
+                    <p>Conocemos la Patagonia como nadie. Desde Neuquén hasta Tierra del Fuego, entendemos las particularidades de cada mercado local.</p>
+                    <p>Nuestro equipo combina experiencia en marketing digital con conocimiento profundo de la región, sus empresas y sus consumidores.</p>
+                    <p>Trabajamos con empresas de turismo, gastronomía, retail, servicios y más, ayudándolas a destacar en el competitivo mercado patagónico.</p>
+                </div>
+                <div class="stats">
+                    <div class="stat">
+                        <span class="stat-number">150+</span>
+                        <span>Empresas Atendidas</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">8</span>
+                        <span>Provincias Patagónicas</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">5</span>
+                        <span>Años de Experiencia</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h2>¿Listo para hacer crecer tu empresa?</h2>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <strong>Ubicación Principal</strong><br>
+                            San Carlos de Bariloche, Río Negro<br>
+                            También atendemos toda la Patagonia
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <div>
+                            <strong>WhatsApp</strong><br>
+                            +54 9 2901 234567<br>
+                            Respuesta inmediata
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div>
+                            <strong>Email</strong><br>
+                            info@patagoniamarketing.com<br>
+                            Consultas y presupuestos
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🌐</div>
+                        <div>
+                            <strong>Cobertura</strong><br>
+                            Neuquén, Río Negro, Chubut, Santa Cruz,<br>
+                            Tierra del Fuego, La Pampa
+                        </div>
+                    </div>
+                </div>
+                <div class="map-container">
+                    <div class="map-placeholder">
+                        🗺️ Mapa Interactivo de la Patagonia<br>
+                        <small>Atendemos toda la región</small>
+                    </div>
+                    <p><strong>Principales ciudades donde trabajamos:</strong></p>
+                    <p>Bariloche • Neuquén • Ushuaia • El Calafate • Puerto Madryn • Comodoro Rivadavia • Río Gallegos • Trelew • Cipolletti • Villa La Angostura</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/5492901234567?text=Hola! Quiero información sobre marketing para mi empresa en la Patagonia" class="whatsapp-float" target="_blank">
+        📱
+    </a>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = '0.2s';
+                    entry.target.style.animationName = 'fadeInUp';
+                }
+            });
+        }, observerOptions);
+
+        // Observe service cards
+        document.querySelectorAll('.service-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // WhatsApp button click tracking
+        document.querySelectorAll('a[href*="wa.me"]').forEach(link => {
+            link.addEventListener('click', function() {
+                console.log('WhatsApp contact initiated');
+            });
+        });
+    </script>
+</body>
+</html>
